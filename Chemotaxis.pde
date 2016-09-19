@@ -2,7 +2,7 @@ Bacteria [] colony;
 void setup()   
 {     
  	size(500, 500);
- 	colony = new Bacteria[10];
+ 	colony = new Bacteria[100];
  	for(int i = 0; i < colony.length; i++)
  	{
  		colony[i] = new Bacteria();
@@ -13,12 +13,13 @@ void draw()
  	background(0);
  	for(int j = 0; j < colony.length; j++)
  	{
+ 		colony[j].chemoColor();
+ 		colony[j].show();  
  		colony[j].move();
- 		colony[j].show();
  	}
 }  
-class Bacteria    
- {  
+class Bacteria 
+{    
  	int myX;
  	int myY;
  	Bacteria()
@@ -28,12 +29,30 @@ class Bacteria
  	}
  	void move()
  	{
- 		myX = myX + (int)(Math.random() * 7) - 3;
- 		myY = myY + (int)(Math.random() * 7) - 3;
+ 		if(mouseX > myX)
+ 		{
+ 			myX = myX + (int)(Math.random() * 5) - 1;
+ 		}
+ 		if(mouseX < myX)
+ 		{
+ 			myX = myX + (int)(Math.random() * 1) - 5;
+ 		}
+ 		if(mouseY < myY)
+ 		{
+ 			myY = myY + (int)(Math.random() * 1) - 5;
+ 		}
+ 		if(mouseY > myY)
+ 		{
+ 			myY = myY + (int)(Math.random() * 5) - 1;
+ 		}
+
+ 	}
+ 	void chemoColor()
+ 	{
+ 		fill( (int)(Math.random() * 206) + 50, (int)(Math.random() * 206) + 50, (int)(Math.random() * 206) + 50);
  	}
  	void show()
  	{
- 		fill( (int)(Math.random() * 206) + 50, (int)(Math.random() * 206) + 50, (int)(Math.random() * 206) + 50);
  		ellipse(myX, myY, 10, 10);
  	}
  }    
