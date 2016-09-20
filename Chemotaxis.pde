@@ -2,7 +2,7 @@ Bacteria [] colony;
 void setup()   
 {     
  	size(500, 500);
- 	colony = new Bacteria[100];
+ 	colony = new Bacteria[10];
  	for(int i = 0; i < colony.length; i++)
  	{
  		colony[i] = new Bacteria();
@@ -13,8 +13,8 @@ void draw()
  	background(0);
  	for(int j = 0; j < colony.length; j++)
  	{
- 		colony[j].chemoColor();
- 		colony[j].show();  
+ 		colony[j].show();
+ 		colony[j].randomMove();
  		colony[j].move();
  	}
 }  
@@ -29,30 +29,40 @@ class Bacteria
  	}
  	void move()
  	{
- 		if(mouseX > myX)
- 		{
- 			myX = myX + (int)(Math.random() * 5) - 1;
- 		}
- 		if(mouseX < myX)
- 		{
- 			myX = myX + (int)(Math.random() * 1) - 5;
- 		}
- 		if(mouseY < myY)
- 		{
- 			myY = myY + (int)(Math.random() * 1) - 5;
- 		}
- 		if(mouseY > myY)
- 		{
- 			myY = myY + (int)(Math.random() * 5) - 1;
- 		}
 
+ 		if(mousePressed == true)
+ 		{
+ 			if(mouseX > myX)
+ 			{
+ 			myX = myX + (int)(Math.random() * 5) - 1;
+ 			}
+ 			if(mouseX < myX)
+ 			{
+ 			myX = myX - (int)(Math.random() * 5) - 1;
+ 			}
+ 			if(mouseY < myY)
+ 			{
+ 			myY = myY - (int)(Math.random() * 5) - 1;
+ 			}
+ 			if(mouseY > myY)
+ 			{
+ 			myY = myY + (int)(Math.random() * 5) - 1;
+ 			}
+ 		}
  	}
- 	void chemoColor()
+ 	void randomMove()
  	{
- 		fill( (int)(Math.random() * 206) + 50, (int)(Math.random() * 206) + 50, (int)(Math.random() * 206) + 50);
+ 		myX = myX + (int)(Math.random() * 7) - 3;
+ 		myY = myY + (int)(Math.random() * 7) - 3;
  	}
  	void show()
  	{
- 		ellipse(myX, myY, 10, 10);
+ 		fill(255, 255, 0);
+ 		ellipse(myX, myY, 25, 25);
+ 		stroke(0);
+ 		arc(myX, myY + 5, 10, 10, PI, 2 * PI);
+ 		fill(0);
+ 		ellipse(myX + 5, myY - 5, 5, 5);
+ 		ellipse(myX - 5, myY - 5, 5, 5);
  	}
  }    
