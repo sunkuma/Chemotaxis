@@ -1,4 +1,5 @@
 Bacteria [] colony;
+boolean gameOver = false;
 void setup()   
 {     
  	size(500, 500);
@@ -11,14 +12,26 @@ void setup()
 void draw()   
 {    
  	background(0);
+
  	for(int j = 0; j < colony.length; j++)
  	{
  		colony[j].show();
  		colony[j].randomMove();
  		colony[j].move();
+ 		colony[j].check();
  	}
  	Prey myMouse = new Prey();
  	myMouse.show();
+ 	if(gameOver == true)
+ 	{
+ 		background(0);
+ 		textSize(50);
+ 		text("GAME OVER", 100, 250);
+ 		if(mousePressed == true)
+ 		{
+ 			gameOver = false;
+ 		}
+ 	}
 } 
 class Prey
 {
@@ -39,16 +52,20 @@ class Bacteria
 {    
  	int myX;
  	int myY;
+ 	int myColor1;
+ 	int myColor2;
+ 	int myColor3;
  	Bacteria()
  	{
  		myX = (int)(Math.random() * 461) + 20;
  		myY = (int)(Math.random() * 461) + 20;
+ 		myColor1 = (int)(Math.random() * 256) + 20;
+ 		myColor2 = (int)(Math.random() * 256) + 20;
+ 		myColor3 = (int)(Math.random() * 256) + 20;
  	}
  	void move()
  	{
-
- 		if(mousePressed == true)
- 		{
+ 		
  			if(mouseX > myX)
  			{
  			myX = myX + (int)(Math.random() * 2);
@@ -65,7 +82,6 @@ class Bacteria
  			{
  			myY = myY + (int)(Math.random() * 2);
  			}
- 		}
  	}
  	void randomMove()
  	{
@@ -74,12 +90,19 @@ class Bacteria
  	}
  	void show()
  	{
- 		fill(255, 255, 0);
+ 		fill(myColor1, myColor2, myColor3);
  		ellipse(myX, myY, 25, 25);
  		stroke(0);
  		arc(myX, myY + 5, 10, 10, PI, 2 * PI);
  		fill(0);
  		ellipse(myX + 5, myY - 5, 5, 5);
  		ellipse(myX - 5, myY - 5, 5, 5);
+ 	}
+ 	void check()
+ 	{
+ 		if(mouseX == myX && mouseY == myY)
+ 		{
+ 			gameOver = true;
+ 		}
  	}
  }    
