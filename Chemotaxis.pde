@@ -1,108 +1,79 @@
-Bacteria [] colony;
-boolean gameOver = false;
-void setup()   
-{     
- 	size(500, 500);
- 	colony = new Bacteria[25];
- 	for(int i = 0; i < colony.length; i++)
- 	{
- 		colony[i] = new Bacteria();
- 	}
-}   
-void draw()   
-{    
- 	background(0);
-
- 	for(int j = 0; j < colony.length; j++)
- 	{
- 		colony[j].show();
- 		colony[j].randomMove();
- 		colony[j].move();
- 		colony[j].check();
- 	}
- 	Prey myMouse = new Prey();
- 	myMouse.show();
- 	if(gameOver == true)
- 	{
- 		background(0);
- 		textSize(50);
- 		text("GAME OVER", 100, 250);
- 		if(mousePressed == true)
- 		{
- 			gameOver = false;
- 		}
- 	}
-} 
-class Prey
-{
-	int myX;
-	int myY;
-	Prey()
-	{
-		myX = mouseX;
-		myY = mouseY;
-	}
-	void show()
-	{
-		fill(0, 230, 0);
-		ellipse(myX, myY, 10, 10);
-	}
+Bacteria [] col; 
+void setup () 
+{   
+  size(600, 600); 
+  col = new Bacteria[70];
+  for (int i =0; i < col.length; i ++) 
+  {
+  col[i] = new Bacteria(); 
+  }
 }
-class Bacteria 
-{    
- 	int myX;
- 	int myY;
- 	int myColor1;
- 	int myColor2;
- 	int myColor3;
- 	Bacteria()
- 	{
- 		myX = (int)(Math.random() * 461) + 20;
- 		myY = (int)(Math.random() * 461) + 20;
- 		myColor1 = (int)(Math.random() * 256) + 20;
- 		myColor2 = (int)(Math.random() * 256) + 20;
- 		myColor3 = (int)(Math.random() * 256) + 20;
- 	}
- 	void move()
- 	{
- 		
- 			if(mouseX > myX)
- 			{
- 			myX = myX + (int)(Math.random() * 2);
- 			}
- 			if(mouseX < myX)
- 			{
- 			myX = myX - (int)(Math.random() * 2);
- 			}
- 			if(mouseY < myY)
- 			{
- 			myY = myY - (int)(Math.random() * 2);
- 			}
- 			if(mouseY > myY)
- 			{
- 			myY = myY + (int)(Math.random() * 2);
- 			}
- 	}
- 	void randomMove()
- 	{
- 		myX = myX + (int)(Math.random() * 5) - 2;
- 		myY = myY + (int)(Math.random() * 5) - 2;
- 	}
- 	void show()
- 	{
- 		fill(myColor1, myColor2, myColor3);
- 		ellipse(myX, myY, 25, 25);
- 		stroke(0);
- 		arc(myX, myY + 5, 10, 10, PI, 2 * PI);
- 		fill(0);
- 		ellipse(myX + 5, myY - 5, 5, 5);
- 		ellipse(myX - 5, myY - 5, 5, 5);
- 	}
- 	void check()
- 	{
- 		if(mouseX == myX && mouseY == myY)
- 		{
- 			gameOver = true;
- 		}
- 	}
- }    
+void draw() 
+{ 
+  background(113, 170, 246); ;
+  for (int i = 0; i< col.length; i++) 
+  {
+  col[i].show();
+  col[i].move();
+  }
+  textSize(12);
+  fill(215, 255, 0);
+ text("HONEY", mouseX, mouseY); 
+  stroke(255);
+  line(mouseX, mouseY, pmouseX, pmouseY);
+
+}
+
+class Bacteria
+{
+  int x; //
+  int y;
+  //int c; 
+  
+  
+  Bacteria(int x, int y, int c) {
+    this.x= x;
+    this.y = y; 
+    //this.c = c;
+    
+  }
+   Bacteria()
+   {
+     x = (int)(Math.random()*501);
+     y = (int)(Math.random()*601);
+
+   }
+
+  void move() {
+    
+    x = x + (int)(Math.random()*3)+2;  
+    y = y + (int)(Math.random()*3)+2; 
+  
+    if (x < mouseX ){
+     x += (int)(Math.random()*2)- 2;
+    }
+    else if (x > mouseX){
+     x -= (int)(Math.random()*2)+ 4;
+    }  
+     if (y < mouseY ){
+     y += (int)(Math.random()*2)- 2;
+    }
+    else if (y > mouseY){
+     y -= (int)(Math.random()*2)+ 4;
+    }
+    
+    
+  }
+ 
+  void show() {
+    noStroke();
+    fill (0);
+    ellipse(x+10, y+2, 7, 7);
+    noStroke();
+    fill(240, 187, 30);
+    ellipse(x, y, 10, 10);
+    noStroke();
+    fill(0); 
+    ellipse(x-2, y-9, 7, 7);  
+ }
+}
